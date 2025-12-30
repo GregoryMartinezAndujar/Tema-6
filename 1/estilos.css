@@ -1,0 +1,33 @@
+.tachado {
+  text-decoration: line-through;
+  color: red;
+}
+
+.diseño {
+  background-color: burlywood;
+  border-radius: 20px;
+  width: 40%;
+  height: auto;
+  margin: 0 auto;
+  padding: 5%;
+}
+
+input[type="text"] {
+  border: 1px solid rgb(255, 255, 255);
+  width: 350px;
+  height: 30px;
+  margin-top: 2%;
+  border-radius: 20px;
+}
+
+button {
+  width: 250px;
+  height: 30px;
+  margin-top: 2%;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
+label {
+  font-size: 30px;
+}
