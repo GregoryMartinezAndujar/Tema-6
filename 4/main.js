@@ -101,7 +101,7 @@ function crearElemento(tipo, nombre, valor) {
     case "label": {
       let oldInput = document.getElementsByName(nombre);
       let newInput = document.createElement(tipo);
-      // newInput.textContent = oldInput[i].value;
+      newInput.textContent = nombre;
       newInput.setAttribute("for", nombre);
 
       if (oldInput[0].type == "radio") {
