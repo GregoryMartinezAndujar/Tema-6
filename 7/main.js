@@ -6,7 +6,18 @@ from.addEventListener("submit", (e) => {
 });
 let enviar = document.getElementById("enviar");
 let modificar = document.getElementById("modificar");
+let mostrar = document.getElementById("mostrar");
+let titulo = document.createElement("h1");
+document.body.appendChild(titulo);
 let arrayEdificios = [];
+arrayEdificios.push(new Edificios.Edificio("Marco", "Palabrea"));
+arrayEdificios[0].construirPlantas(3, 3);
+crearOpciones();
+crearRadios();
+arrayEdificios.push(new Edificios.Edificio("Gregory", "Palavea"));
+arrayEdificios[1].construirPlantas(2, 3);
+crearOpciones();
+crearRadios();
 
 enviar.addEventListener("click", () => {
   let isOk = true;
@@ -57,6 +68,62 @@ modificar.addEventListener("click", () => {
   modificarPropietario();
 });
 
+mostrar.addEventListener("click", () => {
+  let tabla = document.createElement("table");
+  tabla.style.borderCollapse = "collapse";
+
+  let edificio = document.getElementById("listadoEdificios");
+  titulo.textContent = edificio.value;
+
+  for (let i = 0; i < arrayEdificios.length; i++) {
+    if (arrayEdificios[i].direccion == edificio.value) {
+      for (let z = 0; z < arrayEdificios[i].plantas.length; z++) {
+        let columnas = document.createElement("tr");
+        let planta = document.createElement("td");
+        planta.textContent = `Planta${z + 1}`;
+        columnas.appendChild(planta);
+        for (let p = 0; p < arrayEdificios[i].plantas[z].length; p++) {
+          let filas = document.createElement("td");
+          filas.id = `${z}-${p}-${i}`;
+          let nombre = arrayEdificios[i].plantas[z][p].nombre;
+          filas.textContent = nombre || "-"; // para que se vea algo
+
+          filas.addEventListener("click", (e) => {
+            let valor = e.target.id;
+            valor = valor.split("-");
+            console.log(valor);
+            let planta = valor[0];
+            let puerta = valor[1];
+            let edificio = valor[2];
+            console.log(arrayEdificios[edificio].plantas[planta][puerta]);
+            let input = document.createElement("input");
+            document.body.appendChild(input);
+            input.addEventListener("input", (e) => {
+              let puertaComprobacion =
+                arrayEdificios[edificio].plantas[planta][puerta];
+              if (puertaComprobacion) {
+                arrayEdificios[edificio].plantas[planta][puerta].nombre =
+                  e.target.value;
+              }
+            });
+          });
+
+          columnas.appendChild(filas);
+        }
+
+        tabla.appendChild(columnas);
+      }
+
+      let tabla2 = document.getElementsByTagName("table");
+      if (tabla2.length >= 1) {
+        document.body.replaceChild(tabla, tabla2[0]);
+      } else {
+        document.body.appendChild(tabla);
+      }
+    }
+  }
+});
+
 function crearRadios() {
   let listaRadios = document.getElementById("listadoEdificiosRadios");
 
@@ -81,7 +148,8 @@ function crearRadios() {
 function crearOpciones() {
   let lista = document.getElementById("listadoEdificios");
   let opcion = document.createElement("option");
-  opcion.textContent = arrayEdificios[arrayEdificios.length - 1].nombre;
+  opcion.value = arrayEdificios[arrayEdificios.length - 1].direccion;
+  opcion.textContent = arrayEdificios[arrayEdificios.length - 1].direccion;
   lista.appendChild(opcion);
 }
 
