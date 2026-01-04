@@ -1,6 +1,7 @@
 class Edificio {
-  constructor(nombre) {
+  constructor(nombre, direccion) {
     this.nombre = nombre;
+    this.direccion = direccion;
     this.plantas = [];
   }
 
